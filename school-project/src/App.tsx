@@ -37,8 +37,6 @@ type weatherDataType = {
 }
 
 function App() {
-    const [value, setValue] = useState<string>('');
-    const [selectedKey, setSelectedKey] = useState<React.Key | null>(null);
     const [loading, setLoading] = useState(false)
     const [location, setLocation] = useState('')
     const [weather, setWeather] = useState<weatherDataType>()
@@ -119,6 +117,7 @@ function App() {
                     >
                         {(item) => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
                     </Autocomplete>
+                    {/* TODO: Change button color */}
                     <Button color='secondary' onClick={getWeatherHandler}>
                         Получить погоду
                     </Button>
