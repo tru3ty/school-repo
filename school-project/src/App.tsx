@@ -73,7 +73,6 @@ function App() {
             <h1 className={'font-bold mb-4'}>Погода</h1>
             <div className='max-w-80 w-80'>
                 {loading ? (
-                    // TODO: Add spinner
                     <span className='flex items-center justify-center w-full'>
                         <CircularProgress color="primary" aria-label="Loading..." />
                     </span>
@@ -111,12 +110,10 @@ function App() {
                     >
                         {(item) => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
                     </Autocomplete>
-                    {/* TODO: Change button color */}
                     <Button color='primary' onClick={getWeatherHandler}>
                         Получить погоду
                     </Button>
                     <div className="flex items-center gap-2 text-white">
-                        {/* TODO: Change switch color */}
                         <Switch color='danger' checked={isAdvancedMode} onChange={e => setIsAdvancedMode(e.target.checked)} />
                         Расширенный режим
                     </div>
