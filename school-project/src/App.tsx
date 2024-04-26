@@ -2,7 +2,7 @@ import { Key, useState } from 'react'
 import './App.css'
 import fetchWeatherData from './api/weatherRequest'
 import getWindDirection from './api/getWindDirection'
-import { Button } from "@nextui-org/react";
+import { Button, CircularProgress } from "@nextui-org/react";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { Switch } from "@nextui-org/react";
 
@@ -37,8 +37,6 @@ type weatherDataType = {
 }
 
 function App() {
-    const [value, setValue] = useState<string>('');
-    const [selectedKey, setSelectedKey] = useState<React.Key | null>(null);
     const [loading, setLoading] = useState(false)
     const [location, setLocation] = useState('')
     const [weather, setWeather] = useState<weatherDataType>()
@@ -76,34 +74,28 @@ function App() {
             <div className='max-w-80 w-80'>
                 {loading ? (
                     // TODO: Add spinner
-                    <p>Загрузка...</p>
+                    <span className='flex items-center justify-center w-full'>
+                        <CircularProgress color="primary" aria-label="Loading..." />
+                    </span>
                 ) : error ? (
                     <p className='text-red-500'> {error} </p>
                 ) : weather ? (
                     <div className='grid grid-cols-2 gap-2 oddeven'>
                         <p className='col-span-2 mb-4 text-lg font-semibold'> {weather.resolvedAddress} </p>
-                        {isAdvancedMode ? (
+                        <p>Температура: </p>
+                        <p>{weather.currentConditions.temp}℃</p>
+                        {isAdvancedMode && (
                             <>
-                                <p>Температура: </p>
-                                <p>{weather.currentConditions.temp}℃</p>
                                 <p>Ощущается как: </p>
                                 <p>{weather.currentConditions.feelslike}℃</p>
                                 <p>Давление:</p>
                                 <p>{weather.currentConditions.pressure ? weather.currentConditions.pressure * 0.75 : 0} мм рт. ст.</p>
                                 <p>Ветер: </p>
                                 <p>{weather.currentConditions.windspeed} м/с, {getWindDirection(weather.currentConditions.windspeed)}</p>
-                                <p className='col-span-2 mt-1 font-semibold text-center'>{weather.currentConditions.conditions}</p>
-                            </>
-                        ) : (
-                            <>
-                                {/* TODO: Remove duplication */}
-                                <p>Температура: {weather.currentConditions.temp}℃</p>
-                                <p>{weather.currentConditions.conditions}</p>
                             </>
                         )}
+                        <p className='col-span-2 mt-1 font-semibold text-center' >{weather.currentConditions.conditions}</p>
                     </div>
-
-
                 ) : null}
             </div>
             <div className="card">
@@ -119,12 +111,13 @@ function App() {
                     >
                         {(item) => <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>}
                     </Autocomplete>
-                    <Button color='secondary' onClick={getWeatherHandler}>
+                    {/* TODO: Change button color */}
+                    <Button color='primary' onClick={getWeatherHandler}>
                         Получить погоду
                     </Button>
                     <div className="flex items-center gap-2 text-white">
                         {/* TODO: Change switch color */}
-                        <Switch color='secondary' checked={isAdvancedMode} onChange={e => setIsAdvancedMode(e.target.checked)} />
+                        <Switch color='danger' checked={isAdvancedMode} onChange={e => setIsAdvancedMode(e.target.checked)} />
                         Расширенный режим
                     </div>
                 </div>
