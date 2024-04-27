@@ -1,4 +1,4 @@
-import { Key, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import fetchWeatherData from './api/weatherRequest'
 import getWindDirection from './api/getWindDirection'
@@ -69,8 +69,8 @@ function App() {
     }
 
     return (
-        <div className='flex flex-col items-center gap-8 text-white '>
-            <h1 className={'font-bold mb-4'}>Погода</h1>
+        <div className='flex flex-col items-center gap-2 text-white '>
+            <h1 className={'font-bold mb-2'}>Погода</h1>
             <div className='max-w-80 w-80'>
                 {loading ? (
                     // TODO: Add spinner
@@ -79,7 +79,7 @@ function App() {
                     <p className='text-red-500'> {error} </p>
                 ) : weather ? (
                     <div className='grid grid-cols-2 gap-2 oddeven'>
-                        <p className='col-span-2 mb-4 text-lg font-semibold'> {weather.resolvedAddress} </p>
+                        <p className='col-span-2 mb-2 text-lg font-semibold'> {weather.resolvedAddress} </p>
                         {isAdvancedMode ? (
                             <>
                                 <p>Температура: </p>
@@ -105,7 +105,7 @@ function App() {
                 ) : null}
             </div>
             <div className="card">
-                <div className='flex flex-col gap-2 mt-4 max-w-80 w-80'>
+                <div className='flex flex-col gap-1 mt-4 max-w-80 w-80'>
                     <Autocomplete
                         label="Выберите город"
                         defaultItems={CITIES}
