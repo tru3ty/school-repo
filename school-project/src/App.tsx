@@ -69,8 +69,8 @@ function App() {
     }
 
     return (
-        <div className='flex flex-col items-center gap-8 text-white '>
-            <h1 className={'font-bold mb-4'}>Погода</h1>
+        <div className='flex flex-col items-center gap-1 text-white '>
+            <h1 className={'font-bold mb-2'}>Погода</h1>
             <div className='max-w-80 w-80'>
                 {loading ? (
                     <span className='flex items-center justify-center w-full'>
